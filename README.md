@@ -6,6 +6,8 @@
 
 이 문서의 경로는 별도 표시가 없으면 **하네스 루트 기준**이다. `ideation`, `coding`, `ideation_analysis`는 사용법 예시이며, 해당 작업·스킬을 생성한 뒤 사용한다.
 
+현재 구성과 1–8절의 경로 예시는 Codex 기준이다. Claude Code용 변경 요약과 자동 변환 프롬프트는 [9절](#9-claude-code에서-사용하기)에 있다.
+
 ## 1. 처음 시작하기
 
 ### 하네스 준비
@@ -238,3 +240,82 @@ Dreaming은 다음 기준으로 처리한다.
 - **임시 검증 폴더와 작업 원본을 구분한다.** 검증용 임시 하네스가 별도 위치에 만들어질 수 있다. 영구적으로 사용할 기록·산출물의 위치는 실제 하네스의 작업 목록과 작업별 STRUCTURE에서 확인한다.
 
 세부 규칙을 확인하거나 바꿀 때는 [공통 지침](AGENTS.md), [새 작업 생성 스킬](.agents/skills/meta_generate_task/SKILL.md), [dreaming 스킬](.agents/skills/meta_dreaming/SKILL.md)을 기준으로 한다.
+
+## 9. Claude Code에서 사용하기
+
+**Claude Code에서 하네스 루트 폴더를 열고 아래 프롬프트를 그대로 입력한다.** Claude가 파일 변경과 참조 갱신, 검증까지 수행하도록 구성했다.
+
+### 달라지는 부분
+
+- **지침 파일:** 루트와 작업별 `AGENTS.md`를 `CLAUDE.md`로 변경한다. [Claude Code 지침 파일](https://code.claude.com/docs/en/memory#choose-where-to-put-claudemd-files)
+- **스킬 위치:** `.agents/skills/`를 `.claude/skills/`로 옮기고, 관련 참조와 새 작업의 생성 경로도 맞춘다. 스킬 이름과 호출 방식은 유지한다. [Claude Code 스킬 위치](https://code.claude.com/docs/en/skills#choose-where-skills-load)
+- **실행 환경:** 도구·모델·effort 지정은 Claude Code에 맞추되, 업무 전환·subagent 위임·기록·백업 정책은 유지한다.
+- **유지되는 내용:** `tasks/`, 작업별 `MEMORY.md`·`MEMO.md`·`STRUCTURE.md`, 연구 자료와 산출물은 그대로 사용한다. 컨텍스트에는 현재 환경과 변경 이력을 반영한다.
+
+### 복사해서 사용할 변환 프롬프트
+
+```text
+현재 열린 하네스를 Claude Code 전용 구성으로 변환해 줘.
+설명이나 계획 제시로 끝내지 말고, 아래 범위의 파일 변경과 검증까지 수행해.
+
+1. 대상과 기존 상태 확인
+- 현재 작업 디렉터리, Git 상태, 루트 AGENTS.md(이미 변환됐으면 CLAUDE.md),
+  README.md, 메타 스킬과 작업 목록을 읽고 실제 하네스 루트와 작업 루트를 확인해.
+- 실제 하네스에서 작업하고, 기존 미커밋 변경을 보존해. 이미 변환된 항목은
+  중복 생성하지 마. 필수 파일을 찾지 못하면 다른 대상을 추정해 대신 쓰지 말고 보고해.
+
+2. 지침 파일과 스킬 이동
+- 하네스 루트와 확인된 각 작업 루트의 AGENTS.md를 같은 위치의 CLAUDE.md로
+  이름 변경해. 지침 내용은 보존하고, 변환에 필요한 부분만 수정해.
+  AGENTS.md 복사본이나 이를 가져오는 CLAUDE.md를 추가하는 방식으로 대체하지 마.
+- 하네스의 .agents/skills/를 .claude/skills/로 옮겨.
+  .agents/ 안에 skills/만 있고 .claude/가 없으면 디렉터리 이름을 바꿔도 돼.
+- 기존 CLAUDE.md나 .claude/가 있으면 내용을 대조하고 유효한 지침·설정·스킬을
+  보존하며 통합해. 서로 다른 동명 스킬이나 판단할 수 없는 지침 충돌은 덮어쓰지 말고
+  해당 부분을 보류해 사용자에게 확인하고, 독립적으로 가능한 변환은 계속해.
+- 별도 코드베이스·외부 자료·의존성 안의 AGENTS.md는 하네스 지침과 구분해 보존해.
+  연구 코드·데이터·산출물, .git 이력, 하네스 밖의 설정은 변경하지 마.
+
+3. 참조와 향후 생성 규칙 갱신
+- 루트·작업별 CLAUDE.md, 모든 SKILL.md와 관련 보조 파일, README의 실사용 안내에서
+  지침 이름과 스킬 경로를 새 구성에 맞춰 갱신해. 상대 링크도 확인해.
+  예: ../../../AGENTS.md → ../../../CLAUDE.md.
+- 특히 meta_generate_task가 앞으로 아래 파일을 생성하도록 수정해.
+  · .claude/skills/task_{작업명}/SKILL.md
+  · tasks/{작업명}/CLAUDE.md
+  · tasks/{작업명}/MEMORY.md, MEMO.md, STRUCTURE.md
+- 생성되는 작업 전환 스킬도 루트·작업별 CLAUDE.md와 MEMO.md·STRUCTURE.md를 읽고,
+  필요한 작업 스킬은 .claude/skills/에서 찾도록 해. 작업 목록은 루트 CLAUDE.md에서 관리해.
+- meta_dreaming을 포함한 기존 스킬의 공통 지침 링크와 읽기 절차도 맞춰.
+  task_*, {작업명}_{스킬명}, meta_* 명명 규칙과 name·description의 의미는 유지해.
+- 과거 작업 내역·원자료·이 변환 프롬프트의 변경 전 경로 설명까지 일괄 치환하지 마.
+
+4. Claude Code 실행 방식 적용
+- Codex 전용 도구·모델·effort 지정이 있으면 실제 지원되는 Claude Code 설정으로
+  조정하고 변경 내용을 보고해. 핵심 요구사항이나 핵심 조건을 충족할 수 없으면 보고해.
+- task_*는 현재 채팅의 업무를 전환하도록 유지하고 context: fork를 붙이지 마.
+  자동 업무 선택에 필요한 스킬에는 disable-model-invocation: true를 설정하지 마.
+- 임시 타 업무·복합 요청은 Claude Code의 subagent로 위임해. 담당 목표·핵심 조건·범위와
+  해당 스킬·루트 및 작업별 CLAUDE.md·MEMO.md·STRUCTURE.md의 경로를 전달하고 읽도록 해.
+  기록·산출물 수정이 필요한 업무에는 편집 가능한 subagent를 사용해.
+- 기존 협업·용어·검증·기록·백업 정책을 보존하고, 전환을 이유로 업무 체계를 재설계하지 마.
+
+5. 컨텍스트 보존과 갱신
+- tasks/, MEMORY.md, MEMO.md, STRUCTURE.md, work/, results/의 이름과 역할을 유지해.
+  목표·핵심 조건·연구 결과·과거 이력은 보존하고 현재 경로·도구·실행 환경을 갱신해.
+- 기존 작업은 MEMORY의 작업 내역에 실제 YYYY-MM-DD HH:mm:ss KST 시각과 함께
+  관련 전환 내용을 기록하고 MEMO도 맞춰. STRUCTURE는 연구 파일의 위치·역할이
+  바뀐 경우에만 갱신하고, 하네스 운영 파일은 등록하지 마.
+- Claude Code의 auto memory로 이 하네스의 메모리 읽기·기록 절차를 대체하지 마.
+  하네스 루트에는 메모리·구조 파일을 추가하지 마.
+
+6. 검증과 완료 보고
+- 변경된 파일명·경로, Markdown 링크, SKILL.md의 frontmatter, 작업 목록과
+  meta_generate_task의 생성 규칙이 일치하는지 확인해.
+- 운영 지침에 옛 AGENTS.md·.agents/ 경로가 남아 있는지 검색하고, 과거 기록이나
+  변환 설명에 필요한 표기는 구분해 보존해. 샘플 업무를 새로 만들어 검증하지 마.
+- 현재 환경에서 가능한 지침·스킬 인식 확인을 수행하고, 실제 확인하지 못한
+  실행 동작을 검증 완료로 보고하지 마.
+- 변경 요약, 검증 결과, 남은 충돌을 짧게 보고해. 세션 재시작 등 사용자 조작이
+  꼭 필요한 경우에만 마지막에 안내해. 별도 요청 없이 커밋·푸시하지 마.
+```
