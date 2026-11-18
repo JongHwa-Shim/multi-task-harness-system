@@ -16,7 +16,7 @@ ZIP downloads do not include `.git`. When you initialize the harness, the helper
 
 **From the GitHub website: download only the source files**
 
-1. In the [source repository](https://github.com/JongHwa-Shim/multi-task-harness-system), select **Code → Download ZIP**.
+1. In the [source repository](https://github.com/JongHwa-Shim/multi-task-harness-system), select **Code → Download ZIP**, download the archive and extract it.
 
 **From the terminal**
 

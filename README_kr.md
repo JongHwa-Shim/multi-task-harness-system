@@ -16,7 +16,7 @@ ZIP에는 `.git`이 포함되지 않습니다. 하네스를 초기화할 때 도
 
 **GitHub 화면에서 받기 (소스코드만 다운받기)**
 
-1. [원본 저장소](https://github.com/JongHwa-Shim/multi-task-harness-system)에서 **Code → Download ZIP**을 클릭합니다.
+1. [원본 저장소](https://github.com/JongHwa-Shim/multi-task-harness-system)에서 **Code → Download ZIP**을 눌러 내려받고 압축을 풉니다.
 
 **터미널로 받기**
 
