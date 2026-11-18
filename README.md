@@ -1,20 +1,26 @@
-# 여러 업무를 이어가는 AI 연구 하네스
+# Multi-task Harness System: Shared and Synchronized Context Across Tasks Toward an Ultimate Goal
 
-> **이 저장소는 템플릿 저장소입니다.** 개인 연구용으로 가져갈 때는 **Use this template**으로 내 저장소를 만들어 주세요. 하네스 파일·폴더 구성을 가져오고, 개발자의 과거 커밋 이력 없이 초기 커밋 하나로 시작할 수 있습니다. [템플릿 기능 안내](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template)
+**English** | [한국어](README_kr.md)
 
-## 하네스 설치하기
+> **This is a template repository.** To use it for your own research, choose **Use this template** to create your own repository. You get the harness files and folder structure with a single initial commit, without the author's development history. [About repository templates](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template)
 
-**GitHub 화면에서 받기**
+## Set up your copy of the harness
 
-1. GitHub에 로그인한 뒤 [원본 저장소](https://github.com/JongHwa-Shim/multi-task-harness-system)에서 **Use this template → Create a new repository**를 선택합니다.
-2. 본인 계정과 원하는 저장소 이름(예: `my-research-harness`), 공개 범위를 정하고 **Create repository from template**을 누릅니다. 개인 연구용이라면 **Private**으로 시작해도 좋습니다.
-3. 생성된 **내 저장소**에서 **Code → Download ZIP**을 눌러 내려받고 압축을 풉니다.
+**From the GitHub website: create your own repository first**
 
-ZIP에는 `.git`이 포함되지 않습니다. 하네스를 초기화할 때 도우미가 로컬 하네스 git을 생성하며, GitHub에도 백업하려면 도우미에게 내 저장소와 연결해 달라고 요청하세요.
+1. Sign in to GitHub and select **Use this template → Create a new repository** on the [source repository](https://github.com/JongHwa-Shim/multi-task-harness-system).
+2. Choose your account, a repository name such as `my-research-harness`, and its visibility, then click **Create repository from template**. **Private** is a good option for personal research.
+3. In **your new repository**, select **Code → Download ZIP**, download the archive, and extract it.
 
-**터미널로 받기**
+ZIP downloads do not include `.git`. When you initialize the harness, the helper creates a local harness Git repository. If you also want to back up your work to GitHub, ask the helper to connect it to your repository.
 
-[Git](https://git-scm.com/downloads)과 [GitHub CLI (`gh`)](https://cli.github.com/)를 설치한 뒤, 하네스 폴더를 만들 위치에서 실행하세요.
+**From the GitHub website: download only the source files**
+
+1. In the [source repository](https://github.com/JongHwa-Shim/multi-task-harness-system), select **Code → Download ZIP**.
+
+**From the terminal**
+
+Install [Git](https://git-scm.com/downloads) and [GitHub CLI (`gh`)](https://cli.github.com/), then run these commands in the directory where you want to create the harness folder.
 
 ```sh
 gh auth login
@@ -22,410 +28,413 @@ gh repo create my-research-harness --template JongHwa-Shim/multi-task-harness-sy
 cd my-research-harness
 ```
 
-본인 계정에 비공개 저장소를 만들고, 그 저장소에 연결된 로컬 폴더까지 내려받는 명령입니다. `my-research-harness`는 원하는 이름으로 바꾸고, 공개하려면 `--private`을 `--public`으로 바꾸세요. 이미 로그인했다면 첫 줄은 생략해도 됩니다. [명령 안내](https://cli.github.com/manual/gh_repo_create)
+This creates a private repository under your account and clones it into a local folder connected to that repository. Replace `my-research-harness` with your preferred name. To make it public, replace `--private` with `--public`. Skip the first line if you are already signed in. [Command reference](https://cli.github.com/manual/gh_repo_create)
 
-어느 방법이든 받은 폴더를 AI 에이전트에서 열고, 아래 [시작은 도우미와 함께](#시작은-도우미와-함께)를 따라 진행하세요.
+Whichever method you choose, open the downloaded folder in your AI agent and follow [Start with the helper](#start-with-the-helper) below.
 
 ---
 
-하나의 연구에도 조사, 아이디어 구체화, 구현·실험, 논문 작성과 검토가 필요합니다. 업무는 순서대로만 진행되지 않습니다. 구현 중 발견한 문제로 연구주제가 바뀌고, 논문을 쓰다가 추가 실험이 필요해지기도 합니다.
+Even a single research study involves investigation, idea development, implementation, experiments, writing, and review. These tasks rarely move in a straight line: implementation can change the research direction, and writing can reveal the need for another experiment.
 
-이 하네스는 **업무별 지침과 기억을 나눠 관리하면서, 업무를 오가도 맥락을 이어 쓰는 작업 환경**입니다.
+This harness is **a working environment that keeps instructions and memory separate for each task while carrying context across tasks**.
 
-- **각 업무에 집중합니다.** ideation, coding, writing이 자기 지침·기억·자료를 관리합니다.
-- **배경 설명을 줄입니다.** 다른 업무가 남긴 결정과 근거를 직접 찾아 쓰고, 새 채팅에서도 이어갑니다.
-- **변경을 따라갑니다.** 새 설계가 코드·실험·논문에 어디까지 반영됐는지 구분합니다.
+- **Give each task its own focus.** ideation, coding, and writing each maintain their own instructions, memory, and materials.
+- **Spend less time repeating background.** Agents can look up decisions and evidence from other tasks and carry them into a new chat.
+- **Keep track of what has changed.** Track how far a new design has been incorporated into the code, experiments, and paper.
 
-## 시작은 도우미와 함께
+## Start with the helper
 
-이 README가 있는 폴더를 열고 요청하세요. 이 폴더가 **하네스 루트**입니다.
+Open the folder containing this README and make a request. This folder is the **harness root**.
 
 ```text
-/harness-helper 연구 조사, 구현, 논문 작성을 함께 진행하고 싶어. 처음부터 안내해 줘.
+/harness-helper I want to work on research, implementation, and paper writing together. Walk me through getting started.
 ```
 
-도우미가 자신을 소개하고, 목적과 자료를 확인한 뒤 **구성안을 제안 → 동의받은 내용 실행** 순서로 돕습니다. 사용하는 도중에도 업무 추가·분리, 스킬 생성, 구성 변경을 맡길 수 있습니다.
+The helper introduces itself, asks about your purpose and materials, and follows a simple process: **propose a setup → carry out what you approve**. You can also ask it to add or split tasks, create skills, or change the setup as your work develops.
 
-이미 여러 업무를 진행 중이라면 **산출물 자료나 기존 폴더 경로를 전달하고, 이를 반영해 하네스를 초기화해 달라고 요청하세요.** 도우미가 자료를 확인하고 합의한 방식으로 옮기거나 연결해, 기존 업무를 하네스에서 이어갈 수 있도록 구성합니다.
+If you already have several tasks underway, **provide their outputs or folder paths and ask the helper to initialize the harness around them.** It reviews the materials, moves or links them as agreed, and sets up the harness so you can continue your existing work.
 
-궁금한 점이나 해 보고 싶은 일이 있다면 **`/harness-helper`에게 무엇이든 편하게 요청하세요.** 사용법 질문부터 새로운 구성과 활용 방법까지, 적절한 방법을 함께 찾고 실행을 돕습니다.
+If you have a question or something you want to do, **ask `/harness-helper`.** It helps with usage questions, new setups, and ways to use the harness, proposing an appropriate approach and helping you carry it out.
 
-하네스의 작동구조와 규정이 복잡해보일 수 있습니다. **"이런 요청은 괜찮을까?"하고 겁먹지 마세요. 어떤 작업이든 편하게 요청하세요. 하네스가 알아서 자동으로 처리하거나, 최선의 방법을 제안할 것입니다.**
+The structure and rules may look complicated at first. **You do not need to work out whether a request fits the harness before asking. Say what you want to do, and the harness will handle it or suggest a way forward.**
 
-**사용자가 기억 파일과 폴더를 매번 직접 정리할 필요는 없습니다.** 사용자는 목적과 자료, 요청, 중요한 결정을 전달하기만 하면 됩니다. 에이전트가 지침에 따라 구성과 기록을 관리합니다.
+**You do not need to keep every memory file and folder organized by hand.** Provide your purpose, materials, requests, and important decisions. The agent maintains the setup and records according to the instructions.
 
-| 사용자가 챙길 것 | 하네스가 맡는 일 |
+| What you provide or decide | What the harness handles |
 | --- | --- |
-| 하려는 업무·목표·핵심 조건을 말하기 | 업무 구성안을 제안하고, 동의 후 폴더·지침·전환 스킬 생성 |
-| 실제 자료의 위치와 사용할 환경 알려 주기 | 자료를 읽어 연결하고, 필요한 컨텍스트와 스킬에 반영 |
-| 결과를 검토하고 결정·수정 요청 전달하기 | 수행 내용과 결정을 MEMORY·MEMO에 기록하고 STRUCTURE 갱신 |
-| 구성 변경안·핵심 조건 변경·백업 여부 결정하기 | 동의받은 변경 적용, 요청한 저장소에 커밋·백업 |
+| What you want to work on, your goals, and essential conditions | Propose a task setup; after approval, create folders, instructions, and transition skills |
+| Where your materials are and which environment to use | Read and link the materials, incorporating them into the relevant context and skills |
+| Feedback on results, decisions, and change requests | Record actions and decisions in MEMORY and MEMO, and update STRUCTURE |
+| Approval of setup changes, changes to essential conditions, and backups | Apply approved changes and commit to the requested repository |
 
-여기서 자동 관리는 **에이전트가 업무를 수행하면서 기록을 갱신한다**는 뜻입니다. 이미 승인된 업무의 일상적인 기억 갱신까지 매번 승인할 필요는 없습니다. 사용법이나 현재 구성이 궁금할 때도 `/harness-helper`에 물어보세요. 단순 질문에는 설명과 예시로 답하며 파일을 변경하지 않습니다.
+Here, automatic maintenance means **the agent updates records as it performs the work**. Routine memory updates within an approved task do not need separate approval each time. You can also ask `/harness-helper` about usage or the current setup. For questions alone, it explains and gives examples without changing files.
 
-## 1. 폴더 구조와 관리 담당을 한눈에 보기
+## 1. Folder structure and who manages what
 
-**업무(task)**는 여러 요청과 채팅에 걸쳐 이어가는 역할·목표·기억의 단위입니다. `tasks/{업무명}/`가 각 **업무 루트**이고, 전체를 묶는 최상위 폴더가 **하네스 루트**입니다. 파일 수정이나 실험 실행 같은 개별 행위는 **작업**이라고 부릅니다.
+An **ultimate goal** is the larger outcome that multiple tasks work together to achieve, such as completing a research study and writing it up as a paper.
 
-아래는 **업무 세 개와 전용 스킬을 구성한 뒤의 예시**입니다. 처음에는 메타 스킬 세 개가 제공되고, 업무와 전용 스킬은 필요에 따라 도우미와 만듭니다.
+A **task** is an ongoing unit of work with its own role, goals, and memory across requests and chats. Each `tasks/{task-name}/` folder is a **task root**, and the top-level folder containing them all is the **harness root**. An individual step within a task, such as editing a file or running an experiment, is an **action**.
 
-- **[제공]**: 하네스에 기본 포함된 파일입니다.
-- **[관리]**: 에이전트가 합의한 구성과 지침에 따라 생성·관리합니다. 업무 지침과 스킬은 생성·변경 요청에 맞추고, 기억과 구조 안내는 업무 진행에 따라 갱신합니다.
-- **[자료]**: 업무에 맞게 자유롭게 만들고 배치하는 파일·폴더입니다. 사용자가 직접 만들거나 가져올 수도, 에이전트에게 생성을 맡길 수도 있습니다. 예시의 이름을 따를 필요는 없습니다.
+The following is **an example after setting up three tasks and their skills**. The harness initially provides three meta skills; you create tasks and additional skills with the helper as needed.
+
+- **[Included]**: Files provided with the harness.
+- **[Managed]**: Files and folders that the agent creates and maintains under the agreed setup and instructions. Task instructions and skills follow your creation or change requests; memory and structure records are updated as work progresses.
+- **[Materials]**: Files and folders you can freely create and arrange to suit the task. You can create them yourself, bring in existing materials, or ask the agent to make them. You do not need to use the example names.
 
 ```text
-harness/                                     ← 하네스 루트
-├── AGENTS.md                                [제공] 공통 지침 + 에이전트가 갱신하는 업무 목록
-├── README.md                                [제공] 사용자 안내
-├── .git/                                    [관리] 하네스 git의 커밋 이력
+harness/                                     ← harness root
+├── AGENTS.md                                [Included] Common instructions + agent-maintained task registry
+├── README.md                                [Included] English user guide
+├── README_kr.md                             [Included] Korean user guide
+├── .git/                                    [Managed] Harness Git commit history
 ├── .agents/
-│   └── skills/                              모든 스킬의 공통 위치
-│       ├── harness-helper/SKILL.md           [제공] (메타 스킬) 사용법 안내·구성 상담·수정
-│       ├── dreaming/SKILL.md                 [제공] (메타 스킬) 기억 점검·정리
-│       ├── switch-agent-platform/SKILL.md    [제공] (메타 스킬) 플랫폼 구성 전환
-│       ├── task-ideation/SKILL.md            [관리] (업무 전환 스킬) ideation 진입
-│       ├── task-coding/SKILL.md              [관리] (업무 전환 스킬) coding 진입
-│       ├── task-writing/SKILL.md             [관리] (업무 전환 스킬) writing 진입
-│       └── coding-remote/SKILL.md            [관리] (업무 스킬) 필요해서 추가한 원격 실행 절차
+│   └── skills/                              Shared location for all skills
+│       ├── harness-helper/SKILL.md           [Included] (Meta skill) Usage help, setup, and changes
+│       ├── dreaming/SKILL.md                 [Included] (Meta skill) Memory review and reconciliation
+│       ├── switch-agent-platform/SKILL.md    [Included] (Meta skill) Agent platform conversion
+│       ├── task-ideation/SKILL.md            [Managed] (Task transition skill) Enter ideation
+│       ├── task-coding/SKILL.md              [Managed] (Task transition skill) Enter coding
+│       ├── task-writing/SKILL.md             [Managed] (Task transition skill) Enter writing
+│       └── coding-remote/SKILL.md            [Managed] (Task skill) Remote execution procedures added as needed
 └── tasks/
-    ├── ideation/                            [관리] ideation 업무 루트
-    │   ├── AGENTS.md                        [관리] 연구 조사·가설 검토 지침
-    │   ├── MEMORY.md                        [관리] 목표·현재 상태·작업 내역의 원본
-    │   ├── MEMO.md                          [관리] MEMORY 전체의 짧은 요약
-    │   ├── STRUCTURE.md                     [관리] 연구 파일의 위치와 역할
-    │   ├── work/                            [관리·필요시] 중간 점검·시각화·보고서
-    │   ├── results/                         [관리·필요시] 최종 정리를 요청한 산출물
-    │   └── notes/                           [자료] 선행연구·가설 메모의 예
-    ├── coding/                              [관리] coding 업무 루트
-    │   ├── AGENTS.md                        [관리] 구현·실험·검증 지침
-    │   ├── MEMORY.md                        [관리] 목표·실험 상태·작업 내역의 원본
-    │   ├── MEMO.md                          [관리] MEMORY 전체의 짧은 요약
-    │   ├── STRUCTURE.md                     [관리] 코드·연구 파일의 위치와 역할
-    │   ├── work/                            [관리·필요시] 별도로 요청한 중간 평가 보고서
-    │   ├── results/                         [관리·필요시] 최종 정리를 요청한 평가 보고서
-    │   └── codebase/                        [자료] coding 업무의 코드·데이터·정규 실험 산출물
-    └── writing/                             [관리] writing 업무 루트
-        ├── AGENTS.md                        [관리] 논문 작성·근거 확인 지침
-        ├── MEMORY.md                        [관리] 목표·초안 상태·작업 내역의 원본
-        ├── MEMO.md                          [관리] MEMORY 전체의 짧은 요약
-        ├── STRUCTURE.md                     [관리] 초안·연구 파일의 위치와 역할
-        ├── work/                            [관리·필요시] 중간 검토·수정안
-        ├── results/                         [관리·필요시] 최종 정리를 요청한 논문·보고서
-        └── draft.md                         [자료] 작성 중인 논문 초안의 예
+    ├── ideation/                            [Managed] ideation task root
+    │   ├── AGENTS.md                        [Managed] Research and hypothesis review instructions
+    │   ├── MEMORY.md                        [Managed] Full record of goals, current state, and action history
+    │   ├── MEMO.md                          [Managed] Concise summary of the whole MEMORY
+    │   ├── STRUCTURE.md                     [Managed] Locations and roles of research files
+    │   ├── work/                            [Managed, as needed] Ad hoc checks, visualizations, and reports
+    │   ├── results/                         [Managed, as needed] Outputs requested for final consolidation
+    │   └── notes/                           [Materials] Example notes on prior work and hypotheses
+    ├── coding/                              [Managed] coding task root
+    │   ├── AGENTS.md                        [Managed] Implementation, experiment, and validation instructions
+    │   ├── MEMORY.md                        [Managed] Full record of goals, experiment state, and action history
+    │   ├── MEMO.md                          [Managed] Concise summary of the whole MEMORY
+    │   ├── STRUCTURE.md                     [Managed] Locations and roles of code and research files
+    │   ├── work/                            [Managed, as needed] Separately requested interim evaluation reports
+    │   ├── results/                         [Managed, as needed] Evaluation reports requested for final consolidation
+    │   └── codebase/                        [Materials] coding codebase, data, and regular experiment outputs
+    └── writing/                             [Managed] writing task root
+        ├── AGENTS.md                        [Managed] Writing and evidence-checking instructions
+        ├── MEMORY.md                        [Managed] Full record of goals, draft state, and action history
+        ├── MEMO.md                          [Managed] Concise summary of the whole MEMORY
+        ├── STRUCTURE.md                     [Managed] Locations and roles of drafts and research files
+        ├── work/                            [Managed, as needed] Interim reviews and proposed revisions
+        ├── results/                         [Managed, as needed] Papers and reports requested for final consolidation
+        └── draft.md                         [Materials] Example paper draft in progress
 ```
 
-`AGENTS.md`·MEMORY·MEMO·STRUCTURE는 업무를 만들 때 함께 준비합니다. **`work/`와 `results/`는 모든 업무에서 같은 용도로 사용하며, 실제 산출물을 저장할 때 생성합니다.** 아직 없어도 사용자가 빈 폴더를 미리 만들 필요는 없습니다.
+`AGENTS.md`, MEMORY, MEMO, and STRUCTURE are prepared when a task is created. **`work/` and `results/` serve the same purposes in every task and are created when there are outputs to save.** You do not need to create empty folders in advance.
 
-`work/`는 일시적인 점검·시각화나 별도로 요청한 중간 결과, `results/`는 사용자가 최종 정리·보관을 요청한 결과를 둡니다. 모델 체크포인트·실험 로그 등 정규 산출물은 coding 업무 코드베이스의 저장 방식을 따릅니다.
+Use `work/` for ad hoc checks, visualizations, and separately requested intermediate outputs. Use `results/` for outputs you ask to consolidate and keep as final results. Regular outputs such as model checkpoints and experiment logs follow the storage conventions of the coding task's codebase.
 
-**스킬은 하네스 루트에, 업무별 지침·기억·연구 자료는 각 업무 루트에 둡니다.** 하네스 루트에는 MEMORY·MEMO·STRUCTURE를 만들지 않습니다. Claude 구성에서는 `AGENTS.md`가 `CLAUDE.md`로, `.agents/`가 `.claude/`로 바뀝니다.
+**Skills live at the harness root; task instructions, memory, and research materials live in their respective task roots.** MEMORY, MEMO, and STRUCTURE are not created at the harness root. In the Claude setup, `AGENTS.md` becomes `CLAUDE.md`, and `.agents/` becomes `.claude/`.
 
-직접 파일을 편집하는 것도 가능합니다. 자료를 옮기거나 구성을 바꿨다면 “변경한 파일을 확인하고 관련 기억과 경로를 맞춰 줘”라고 요청하면 됩니다.
+You can edit files directly as well. After moving materials or changing the setup, ask: “Check the files I changed and update the related memory and paths.”
 
-## 2. 공통 지침과 업무 지침은 역할이 다릅니다
+## 2. Common instructions and task instructions have different roles
 
-| 파일 | 적용 범위 | 담는 내용의 예 |
+| File | Scope | Examples of its contents |
 | --- | --- | --- |
-| 하네스 루트의 `AGENTS.md` | 모든 업무 | 핵심 조건 보존, 업무 선택·위임, 기억 관리, 용어, 업무 목록 |
-| `tasks/ideation/AGENTS.md` | ideation | 선행연구 비교 방법, 가설과 근거의 구분 |
-| `tasks/coding/AGENTS.md` | coding | 구현 방식, 실험 조건, 검증 절차 |
-| `tasks/writing/AGENTS.md` | writing | 논문 구성, 주장·인용 확인, 작성 형식 |
+| `AGENTS.md` at the harness root | All tasks | Preserve essential conditions; select and delegate tasks; manage memory, terminology, and the task registry |
+| `tasks/ideation/AGENTS.md` | ideation | How to compare prior work and distinguish hypotheses from evidence |
+| `tasks/coding/AGENTS.md` | coding | Implementation approach, experiment conditions, and validation procedures |
+| `tasks/writing/AGENTS.md` | writing | Paper structure, checking claims and citations, and writing conventions |
 
-에이전트는 **공통 지침과 현재 업무의 세부 지침을 함께 적용**합니다. 예를 들어 coding은 공통의 “핵심 조건을 임의로 바꾸지 않는다”는 원칙을 따르면서, coding 지침에 정한 실험 절차를 수행합니다.
+The agent **applies the common instructions together with the current task's instructions**. For example, coding follows the common rule to preserve essential conditions while using the experiment procedures defined in its own instructions.
 
-진행 상황은 지침 파일에 계속 쌓지 않고 MEMORY·MEMO에 기록합니다. 다른 업무의 자료를 참고한다고 그 업무의 전용 규칙까지 현재 업무 전체에 적용하지는 않습니다.
+Progress is recorded in MEMORY and MEMO rather than continually added to instruction files. Referring to another task's materials does not make all of that task's specific rules apply to the current task.
 
-## 3. 업무 선택과 전환: AI에게 맡기거나 직접 지정하기
+## 3. Selecting and switching tasks: let the AI choose or specify one yourself
 
-**업무 전환 스킬 `task-{업무명}`은 AI 에이전트가 맡을 역할과 업무 수행의 기준 폴더, 읽을 지침·기억을 정하는 스킬입니다.**
+**A task transition skill, `task-{task-name}`, specifies the AI agent's role, its task root, and the instructions and memory it needs to read.**
 
-예를 들어 `task-coding`을 적용하면 에이전트는 coding 담당이 되고, **`tasks/coding/`을 업무 수행의 기준인 업무 루트로 인식**합니다. 파일을 찾고 만들거나 명령을 실행할 대상 경로를 이 기준에서 정하며, 필요한 경우 그 아래 코드베이스에서 작업합니다.
+For example, applying `task-coding` gives the agent the coding role and makes **`tasks/coding/` its task root: the reference point for carrying out the work**. It uses that base to determine where to find and create files or run commands, working inside the codebase below it when appropriate.
 
-진입할 때는 하네스 루트의 공통 지침·업무 목록을 먼저 확인하고, 업무 루트의 `AGENTS.md`·`MEMO.md`·`STRUCTURE.md`를 읽습니다. 공통 원칙과 해당 업무의 세부 지침을 함께 적용하고, 상세 맥락은 MEMORY에서, 전용 절차는 필요한 업무 스킬에서 확인합니다.
+On entry, the agent first checks the common instructions and task registry at the harness root, then reads `AGENTS.md`, `MEMO.md`, and `STRUCTURE.md` in the task root. It applies both sets of instructions, consulting MEMORY for details and the relevant task skills for specialized procedures.
 
-업무를 정하는 방법은 두 가지입니다.
+There are two ways to select a task.
 
-| 방법 | 요청 예시 | 에이전트가 하는 일 |
+| Method | Example request | What the agent does |
 | --- | --- | --- |
-| **AI가 판단해 선택** | 새 채팅에서 “평면도 생성 연구 후보를 비교해 줘.” | 등록된 업무 중 ideation이 담당할 요청이라고 자율적으로 판단한 뒤, `/task-ideation` 업무 전환 스킬을 자율 호출하여 해당 업무로 진입 |
-| **사용자가 직접 지정** | `/task-coding 채택한 v1을 구현해 줘.`<br/>또는 “이제 coding 업무로 전환해서 v1을 구현해 줘.” | 요청에 지정된 `task-coding`을 적용하고, coding의 업무 루트·지침·기억을 기준으로 구현 시작 |
+| **The AI chooses** | In a new chat: “Compare research approaches for floor plan generation.” | Determines that ideation is the appropriate registered task, then invokes `/task-ideation` to enter it |
+| **You specify the task** | `/task-coding Implement the adopted v1 approach.`<br/>Or: “Switch to coding now and implement v1.” | Applies `task-coding` and starts implementation using coding's task root, instructions, and memory |
 
-**AI가 선택하든 사용자가 지정하든, 선택한 업무의 전환 스킬을 통해 역할과 맥락을 갖춘다는 흐름은 같습니다.** 사용자는 스킬명과 수행할 요청을 함께 적거나, 자연어로 원하는 업무와 할 일을 말하면 됩니다.
+**Whether the AI chooses or you specify the task, the same transition skill establishes the role and context.** You can enter the skill name together with your request, or describe the desired task and work in ordinary language.
 
 ```mermaid
 flowchart TD
-    R["하네스 공통 지침·업무 목록 확인"] --> A["AI가 등록된 업무 중 담당 업무 판단<br/>연구 후보 비교 → ideation"]
-    R --> B["사용자가 업무와 할 일을 지정<br/>/task-coding v1을 구현해 줘"]
-    A --> C["선택한 업무의 task-... 스킬 호출·적용"]
+    R["Check common instructions and task registry"] --> A["AI selects the appropriate registered task<br/>Compare research approaches → ideation"]
+    R --> B["User specifies the task and request<br/>/task-coding Implement v1"]
+    A --> C["Invoke and apply the selected task-... skill"]
     B --> C
-    C --> D["담당 역할 설정<br/>해당 업무 폴더를 수행 기준으로 인식"]
-    D --> E["업무 AGENTS.md · MEMO.md · STRUCTURE.md 읽기<br/>필요한 MEMORY 상세·업무 스킬 확인"]
-    E --> F["공통 지침과 업무 지침을 함께 적용해 수행"]
+    C --> D["Set the role<br/>Use the task folder as the working reference"]
+    D --> E["Read task AGENTS.md, MEMO.md, and STRUCTURE.md<br/>Consult MEMORY details and task skills as needed"]
+    E --> F["Perform the work using common and task instructions"]
 ```
 
-### 3.1. 이미 진행 중인 채팅에서는
+### 3.1. In an ongoing chat
 
-한 번 정한 메인 업무는 후속 요청에도 유지합니다. 아래 표는 **서로 독립적인 요청 상황을 비교**한 것입니다. 순서대로 이어지는 실제 사용 흐름은 6.1절에서 보여 드립니다.
+Once a main task is selected, it stays active for follow-up requests. The table below compares **independent situations**, not consecutive steps. Section 6.1 shows a complete sequence.
 
-| 상황 유형 | 요청 예시 | 처리 방식 |
+| Situation | Example request | How it is handled |
 | --- | --- | --- |
-| 같은 업무의 후속 요청 | ideation에서 “두 번째 후보를 더 살펴보자.” | 기존 지침·맥락을 이어서 사용. 전환 스킬을 다시 부를 필요 없음 |
-| 타 업무에 일시적으로 위임 | ideation에서 “이 방법의 구현 가능성만 검토해 줘.” | coding subagent가 `task-coding`을 적용해 검토. 메인 업무는 ideation 유지 |
-| 메인 업무 변경 | `/task-coding 채택한 방법을 구현해 줘.` 또는 “이제 coding으로 전환해서 구현하자.” | 메인 에이전트가 `task-coding`을 적용하고 coding으로 전환 |
-| 여러 업무가 섞인 요청 | “조사 결과를 검토하고, 구현한 뒤 논문 초안까지 작성해 줘.” | 업무별 subagent가 각 전환 스킬을 적용하고 선후관계에 맞춰 수행. 메인은 조율·통합 |
+| Follow-up within the same task | During ideation: “Let's look more closely at the second candidate.” | Continue with the existing instructions and context; no need to invoke the transition skill again |
+| Temporary delegation to another task | During ideation: “Just assess whether this approach is feasible to implement.” | A coding subagent applies `task-coding` and reviews feasibility; ideation remains the main task |
+| Change the main task | `/task-coding Implement the adopted approach.` Or: “Switch to coding now and start implementation.” | The main agent applies `task-coding` and switches to coding |
+| A request spanning several tasks | “Review the research findings, implement the approach, and write a paper draft.” | Task subagents apply their respective transition skills and work in dependency order; the main agent coordinates and integrates |
 
-AI는 처음 담당 업무를 고르거나 필요한 타 업무를 위임할 때 적절한 전환 스킬을 판단해 적용합니다. **다른 종류의 요청이 들어왔다고 메인 업무를 매번 바꾸지는 않습니다.** 메인 업무를 바꾸려면 전환을 명시하세요. 담당 업무가 모호하면 질문하고, 아직 없는 업무가 필요하면 도우미와 생성안을 정합니다.
+The AI selects the appropriate transition skill when choosing an initial task or delegating work to another task. **A request of a different kind does not automatically change the main task.** Explicitly request a transition when you want to change it. If the appropriate task is unclear, the agent asks. If a task does not exist yet, the helper proposes how to create it.
 
-**업무 스킬 `{업무명}-{스킬명}`은 해당 업무의 전용 절차**입니다. `task-coding`으로 coding 역할에 진입한 뒤 `coding-remote`로 원격 머신을 사용하는 식입니다. 업무 스킬이나 메타 스킬 호출만으로 메인 업무가 바뀌지는 않습니다.
+**A task skill, `{task-name}-{skill-name}`, defines a procedure specific to that task.** For example, enter the coding role with `task-coding`, then use `coding-remote` to work with a remote machine. Invoking a task skill or a meta skill alone does not change the main task.
 
-## 4. 기억은 업무별로, 필요한 맥락은 서로 공유합니다
+## 4. Keep memory per task and share the context you need
 
-### 4.1. 기억 파일과 다른 업무의 맥락 읽기
+### 4.1. Memory files and context from other tasks
 
-| 파일 | 무엇을 담나요? | 언제 읽나요? |
+| File | What does it contain? | When is it read? |
 | --- | --- | --- |
-| `MEMORY.md` | 장기 목표·조건·결정, 현재 상태·미해결 문제, 시간순 작업 내역의 원본 | 상세 이유·과거 맥락·근거가 필요할 때 |
-| `MEMO.md` | MEMORY 전체에서 목표·현재 상태·주요 이력을 고르게 압축한 요약 | 업무 시작·재개·전환 시 기본으로 |
-| `STRUCTURE.md` | 실제 연구 파일의 경로와 역할. 하네스 운영 파일은 제외 | 업무 시작·재개·전환 시 기본으로, 이후 파일 위치 확인이 필요할 때 |
+| `MEMORY.md` | The full record: long-term goals, conditions and decisions; current state and unresolved issues; chronological action history | When detailed reasoning, past context, or evidence is needed |
+| `MEMO.md` | A balanced summary of goals, current state, and important history from the whole MEMORY | By default when starting, resuming, or switching to a task |
+| `STRUCTURE.md` | Paths and roles of actual research files, excluding harness management files | By default when starting, resuming, or switching to a task, and later when file locations are needed |
 
-MEMO는 단기기억 전용 파일이 아닙니다. **전체 목표와 주요 이력, 지금 할 일까지 함께 담은 재개용 요약**입니다. 에이전트가 의미 있는 변경을 MEMORY에 시각·이유·근거와 함께 기록하고 MEMO도 갱신합니다. 상세 기록을 요약 때문에 지우지는 않습니다.
+MEMO is not limited to short-term memory. It is **a summary for resuming work that covers overall goals, important history, and what to do next**. The agent records meaningful changes in MEMORY with timestamps, reasons, and evidence, and updates MEMO as well. Summarizing does not remove the detailed records.
 
-다른 업무는 필요한 MEMO·STRUCTURE부터 살펴보고, MEMORY와 원본에서 세부 근거를 찾습니다. 결과 원본은 만든 업무가 관리하고, 사용하는 업무는 **어떤 버전을 실제로 반영했는지** 남깁니다.
+Other tasks start with the relevant MEMO and STRUCTURE, then look up details and evidence in MEMORY and the original sources. The task that produced a result manages the original; a task using it records **which version it actually incorporated**.
 
-### 4.2. 기억에 없는 변경 경위는 Git 이력에서 찾습니다
+### 4.2. Use Git history to recover changes that memory does not explain
 
-MEMORY는 결정의 이유와 현재 상태를 설명하고, **하네스 git은 커밋에 저장된 파일의 당시 버전과 변경 내용을 확인하게 해 줍니다.** 에이전트는 기억과 실제 파일이 어긋나거나 업무를 이어받는 데 필요한 맥락이 부족하면 브랜치·커밋 이력·파일 차이를 조회합니다.
+MEMORY explains decisions and the current state. **Harness Git lets you inspect the versions of files saved in commits and what changed between them.** When memory and actual files disagree, or context is missing during a handoff, the agent examines branches, commit history, and file diffs.
 
-예를 들어 coding이 사용하던 연구안과 현재 ideation의 연구안이 다르면, 기억과 원본을 읽고 **마지막으로 사용한 버전 이후 어떤 파일이 어떻게 바뀌었는지** Git 이력으로 확인할 수 있습니다.
+For example, if coding used a different research design from the current one in ideation, the agent can read memory and the original sources, then use Git history to determine **which files changed, and how, since the version coding last used**.
 
-| 구분 | 저장소 위치의 예 | 확인·백업하는 내용 |
+| Repository | Example location | What it tracks and backs up |
 | --- | --- | --- |
-| **하네스 git** | `<하네스 루트>/.git/` | Git에 등록한 공통·업무 지침, 스킬, 기억, 연구 문서 등의 버전과 업무 간 변경 흐름 |
-| **프로젝트 git** | `tasks/coding/codebase/.git/` | **coding 업무의 코드베이스에 별도로 둔 Git**. 구현·실험 설정 등 해당 코드베이스의 버전 |
+| **Harness Git** | `<harness-root>/.git/` | Versions of tracked common and task instructions, skills, memory, and research documents, including changes across tasks |
+| **Project Git** | `tasks/coding/codebase/.git/` | **The separate Git repository for the coding task's codebase**, including implementation and experiment configurations |
 
-두 저장소는 각각 관리합니다. 하네스 백업에 coding 코드베이스의 별도 Git 백업·푸시까지 포함되는 것으로 취급하지 않습니다.
+The two repositories are managed separately. A harness backup does not also commit or push the coding codebase's separate Git repository.
 
 ```text
-/task-coding 이전에 구현하던 연구안과 현재 기록이 다른 것 같아.
-ideation의 기억과 하네스 git 이력을 확인해서 변경된 부분부터 알려 줘. 아직 수정하지 마.
+/task-coding The research design I was implementing seems different from the current records.
+Check ideation's memory and the harness Git history, and tell me what changed first. Do not edit anything yet.
 ```
 
-변경을 백업하고 싶을 때는 별도로 요청합니다.
+Request a backup when you want to save changes in Git.
 
 ```text
-현재까지의 하네스 변경을 하네스 git에 커밋해 줘.
+Commit all harness changes so far to harness Git.
 ```
 
-사용자는 백업할 시점에 요청하거나 에이전트의 백업 제안에 동의하면 됩니다. 에이전트는 의미 있는 결과가 나오면 변경 요약과 추천 커밋 메시지를 제시합니다. **이력 조회는 필요에 따라 수행하고, 커밋은 요청·동의 후, 원격 푸시는 명시적인 요청 후 진행합니다.** 어느 저장소를 뜻하는지 불명확하면 확인합니다.
+You can request a backup or accept the agent's suggestion. After meaningful results, the agent summarizes the changes and proposes a commit message. **History is inspected as needed, commits require a request or approval, and remote pushes require an explicit request.** If the intended repository is unclear, the agent asks.
 
-Git 이력은 커밋된 파일을 기준으로 하므로, 다시 참조할 연구 결정이나 산출물이 정리된 시점에 백업해 두면 업무 전환과 맥락 복구에 도움이 됩니다.
+Git history covers committed files. Backing up research decisions and outputs at meaningful milestones makes task transitions and context recovery easier.
 
-### 4.3. Dreaming으로 기억과 실제 자료를 함께 점검하기
+### 4.3. Dreaming: check memory against the actual materials
 
-**업무를 오래 진행해 자료와 기록이 쌓였을 때, 또는 기억의 불일치·모순이 느껴질 때 사용하세요.** 큰 단계를 마치거나 오래된 업무를 다시 이어가기 전에 주기적으로 정리하는 데도 유용합니다. 에이전트가 기록의 충돌이나 누락을 발견하면 실행을 제안할 수도 있습니다.
+**Use dreaming after a long stretch of work has accumulated materials and records, or when you notice inconsistent or contradictory memory.** It is also useful as a periodic review at milestones or before resuming an older task. The agent may suggest it when it finds conflicting or missing records.
 
-세부 점검 절차를 길게 설명할 필요는 없습니다. **스킬을 호출하면 기본 점검·정리를 수행하며, 주로 정할 것은 전체 업무를 볼지 특정 업무만 볼지입니다.**
+You do not need to spell out a long review procedure. **Invoking the skill runs its standard checks and reconciliation; the main choice is whether to cover all tasks or just one.**
 
-전체 업무와 업무 간 연결을 점검하려면:
+To check all tasks and the connections between them:
 
 ```text
 /dreaming
 ```
 
-특정 업무 내부만 점검하려면:
+To check only one task:
 
 ```text
-/dreaming coding 업무만 점검해 줘.
+/dreaming Check only the coding task.
 ```
 
-Dreaming은 **기억과 실제 자료·산출물의 일치성을 확인하고, 빠진 맥락과 오래된 기록을 정리하는 과정**입니다. MEMORY·MEMO·STRUCTURE를 기본으로 점검하며, 필요한 다른 파일과 이력도 함께 대조합니다.
+Dreaming **checks that memory agrees with actual materials and outputs, fills in missing context, and reconciles outdated records**. It checks MEMORY, MEMO, and STRUCTURE by default and compares other files and history as needed.
 
-| 구분 | 점검하는 파일·자료 | 무엇을 확인하나요? |
+| Scope | Files and materials checked | What is checked? |
 | --- | --- | --- |
-| **기본** | `MEMORY.md` | 목표·조건·결정·현재 상태·시간순 내역이 근거와 맞는지 |
-| **기본** | `MEMO.md` | 중요한 맥락이 빠졌거나, 원기록보다 오래됐거나, 미검증 내용을 확정해 적었는지 |
-| **기본** | `STRUCTURE.md` | 실제 파일의 위치·존재·역할과 안내가 일치하는지 |
-| **필요한 추가 자료** | 업무 지침, 관련 `SKILL.md`와 보조 문서 | 합의한 절차·조건·환경 정보와 기록의 일치 여부 |
-| **필요한 추가 자료** | 연구 노트, 코드·설정, 데이터 설명, 실험 로그·결과, 논문 초안 | 기록한 작업을 실제 수행했는지, 주장에 근거가 있는지, 어느 결과 버전을 반영했는지 |
-| **필요한 변경 이력** | 관련 Git 커밋·파일 차이 | 커밋별 파일 변경·이전 판본·업무 간 반영 흐름 |
+| **Default** | `MEMORY.md` | Whether goals, conditions, decisions, current state, and chronological records match the evidence |
+| **Default** | `MEMO.md` | Missing important context, outdated summaries, or unverified statements recorded as confirmed |
+| **Default** | `STRUCTURE.md` | Whether the listed paths, file existence, and roles match the actual files |
+| **Additional material as needed** | Task instructions, relevant `SKILL.md` files, and supporting documents | Whether records agree with the accepted procedures, conditions, and environment |
+| **Additional material as needed** | Research notes, code and configuration, data descriptions, experiment logs and results, and paper drafts | Whether recorded work was actually done, whether claims have supporting evidence, and which result versions were incorporated |
+| **Relevant change history** | Git commits and file diffs | File changes, earlier versions, and how changes were incorporated across tasks |
 
-예를 들어 MEMO에는 “v2 실험 완료”라고 적혔지만 로그·결과가 v1만 뒷받침하면, 근거를 확인해 상태를 바로잡고 v2 검증을 미해결로 남깁니다. 논문이 사용하는 결과 버전과 기억의 기록이 다른지도 대조합니다. 어느 쪽이 맞는지 판단할 근거가 없으면 충돌을 보존하고 사용자에게 확인합니다.
+For example, MEMO may say “v2 experiments complete” while the logs and results only support v1. The agent checks the evidence, corrects the status, and leaves v2 validation unresolved. It also checks whether the result version used in the paper matches the memory records. If there is no evidence to determine which conflicting account is correct, it preserves the conflict and asks you.
 
-**업무를 지정하지 않으면 전체 업무와 업무 간 연결을 점검**하고, 필요한 하네스 지침·스킬·Git 이력까지 살핍니다. `/dreaming coding 업무만 점검해 줘`처럼 지정하면 자료 조사도 해당 업무 내부로 제한합니다. 범위 밖의 스킬이나 자료가 필요하면 그 의존성을 알립니다.
+**Without a specified task, dreaming checks all tasks and their connections**, including the relevant harness instructions, skills, and Git history. A request such as `/dreaming Check only the coding task.` limits even the source inspection to that task. If a skill or material outside that scope is needed, the agent reports the dependency.
 
-**점검 자료는 폭넓게 확인하되, 기본적으로 수정하는 파일은 MEMORY·MEMO·STRUCTURE입니다.** 다른 파일에서 발견한 문제는 후속 조치로 보고합니다. 기록을 맞추려고 코드·데이터·논문이나 연구 조건을 임의로 바꾸지 않습니다. “수정하지 말고 점검 결과만 알려 줘”라고 요청하면 기록 파일도 수정하지 않습니다.
+**The inspection can cover a broad set of materials, but by default only MEMORY, MEMO, and STRUCTURE are modified.** Problems found in other files are reported as follow-up work. The agent does not change code, data, papers, or research conditions merely to make the records agree. If you ask for findings only and no edits, it leaves the record files unchanged too.
 
-## 5. 필요할 때 쓰는 관리 도구
+## 5. Management tools to use when needed
 
-다음 세 개는 **메타 스킬**입니다. 업무 역할을 바꾸지 않고 하네스를 관리합니다.
+These three **meta skills** manage the harness without changing the active task role.
 
-| 스킬 | 용도 | 요청 예시 |
+| Skill | Purpose | Example request |
 | --- | --- | --- |
-| `/harness-helper` | 사용법·현재 구성 질의응답, 초기화, 업무·폴더·스킬 생성과 수정 | MEMORY와 MEMO의 차이를 설명해 줘. / writing 업무를 나누는 방법을 제안해 줘. |
-| `/dreaming` | 기억의 누락·충돌·오래된 상태와 업무 간 맥락 점검 | `/dreaming` 또는 `/dreaming coding 업무만 점검해 줘.` |
-| `/switch-agent-platform` | AGENTS ↔ Claude 운영 구성 전환 | Claude 구성으로 바꿔 줘. |
+| `/harness-helper` | Questions about usage and the current setup; initialization; creating or changing tasks, folders, and skills | Explain the difference between MEMORY and MEMO. / Suggest how to split the writing task. |
+| `/dreaming` | Review missing, conflicting, or outdated memory and context across tasks | `/dreaming` or `/dreaming Check only the coding task.` |
+| `/switch-agent-platform` | Switch between AGENTS and Claude setups | Switch the harness to the Claude setup. |
 
-스킬 이름은 소문자·숫자·하이픈을 쓰며, 메타 스킬은 자유 이름과 description의 “이 스킬은 메타 스킬이다.”라는 안내로 구분합니다. 업무·스킬 생성이나 폴더 분리는 도우미가 현재 자료를 확인해 변경안을 먼저 제시하고 동의 후 실행합니다.
+Skill names use lowercase letters, digits, and hyphens. Meta skill names are otherwise unrestricted, and their descriptions identify them as meta skills. When creating tasks or skills, or splitting folders, the helper reviews existing materials, proposes changes, and acts after approval.
 
-### 5.1. Claude에서 처음 시작한다면
+### 5.1. Getting started with Claude
 
-`/harness-helper`가 보이지 않으면 아래처럼 요청하세요.
-
-```text
-하네스 루트의 .agents/skills/harness-helper/SKILL.md를 직접 읽고 적용해 줘.
-Claude 구성으로 준비하는 것부터 안내해 줘.
-```
-
-이미 전환한 하네스에서는 같은 파일이 `.claude/skills/harness-helper/SKILL.md`에 있습니다. 플랫폼 전환은 지침 파일과 설정 폴더를 옮기며, 본문에 남은 이전 경로 표기는 현재 플랫폼에서 같은 역할의 경로로 해석합니다.
-
-## 6. 실제 활용 예시
-
-### 6.1. 연구 조사 → 구현·실험 → 논문 작성 → 연구 수정 이어가기
-
-다음은 **하나의 평면도 생성 연구를 순서대로 진행하는 가상 예시**입니다. 조사 노트, 기존 코드, 논문 초안이 이미 조금씩 쌓여 있고, 업무를 오갈 때마다 배경을 다시 설명하는 상황에서 시작합니다. 예시의 업무·자료·결과는 실제로 생성된 상태를 뜻하지 않습니다.
-
-**1. 흩어진 연구 자료로 업무 공간을 구성합니다.**
+If `/harness-helper` is not available, ask:
 
 ```text
-/harness-helper 제공한 조사 노트와 코드, 논문 초안을 바탕으로
-ideation·coding·writing 업무를 구성하고 싶어.
-기존 자료를 유지하면서 각 업무에서 이어갈 수 있는 구성을 제안해 줘.
+Read and apply .agents/skills/harness-helper/SKILL.md at the harness root.
+Start by helping me prepare the harness for Claude.
 ```
 
-도우미는 실제 자료를 읽고 어떤 업무에 둘지, 무엇을 옮기거나 공유할지 제안합니다. 동의하면 업무 폴더·지침·기억·전환 스킬을 만들고 기존 자료를 연결합니다. 사용자는 목표와 핵심 조건을 설명하고 구성을 확인하면 됩니다.
+In a harness that has already been converted, the same file is at `.claude/skills/harness-helper/SKILL.md`. Platform conversion moves the instruction files and settings directory. References to old paths inside documents are interpreted as their counterparts in the current platform.
 
-**여기서의 장점:** 이미 해 온 연구를 활용해 시작하며, 사용자가 업무별 기억 파일과 전환 스킬을 하나씩 작성할 필요가 없습니다.
+## 6. Practical examples
 
-**2. 자연어 요청으로 연구 조사를 이어갑니다.**
+### 6.1. Research → implementation and experiments → paper writing → revising the research
 
-새 채팅에서 다음처럼 요청합니다.
+This is **a fictional sequence for a single floor plan generation study**. Imagine that you already have some research notes, code, and a paper draft, but have to explain the background again whenever you change tasks. The tasks, materials, and results below are illustrative; they have not already been created in the harness.
+
+**1. Organize existing research materials into tasks.**
 
 ```text
-인접 조건을 잘 지키는 평면도 생성 방법을 조사해 줘.
-기존 노트의 후보들을 비교하고, 다음에 검증할 가설을 정리해 줘.
+/harness-helper I want to set up ideation, coding, and writing tasks
+using the research notes, code, and paper draft I provided.
+Propose a setup that preserves my existing materials and lets each task continue from them.
 ```
 
-에이전트가 등록된 업무 중 적절하다고 판단되는 ideation을 선택하고 `task-ideation`을 호출합니다. `tasks/ideation/`을 기준으로 기존 목표·조건·노트를 읽어 후보를 비교합니다. 논의를 거쳐 선택한 방법을 v1으로 기록하되, 연구 방향으로 채택한 상태와 실험으로 검증한 상태를 구분합니다.
-직접 `/task-ideation`을 호출해도 괜찮습니다.
+The helper reads the actual materials and proposes where they belong and what to move or share. Once you approve, it creates task folders, instructions, memory, and transition skills, and links your existing materials. You explain the goals and essential conditions and review the proposed setup.
 
-**여기서의 장점:** 사용자가 스킬 이름을 먼저 고르거나, 이전 채팅의 연구 배경을 다시 정리해서 전달할 부담이 줄어듭니다.
+**Why this helps:** You start from the research you have already done, without having to write each task's memory files and transition skill yourself.
 
-**3. 연구 대화를 유지하면서 구현 가능성만 확인합니다.**
+**2. Continue the research with an ordinary request.**
+
+In a new chat, ask:
 
 ```text
-이 방법의 구현 가능성만 coding에서 검토해 줘.
-코드는 아직 수정하지 말고, 필요한 변경과 예상 제약을 알려 줘.
+Investigate floor plan generation methods that satisfy adjacency constraints.
+Compare the candidates in my existing notes and organize the hypotheses to test next.
 ```
 
-메인 업무는 ideation으로 유지합니다. coding subagent가 `task-coding`을 적용하고 연구 결정과 기존 코드의 필요한 부분을 읽어 검토 결과를 돌려줍니다. 사용자는 그 결과를 보며 같은 연구 대화에서 방법을 더 다듬을 수 있습니다.
+The agent selects ideation from the registered tasks and invokes `task-ideation`. Using `tasks/ideation/` as its reference point, it reads existing goals, conditions, and notes to compare candidates. After discussion, it records the chosen approach as v1, distinguishing adoption as a research direction from experimental validation.
+You can also invoke `/task-ideation` directly.
 
-**여기서의 장점:** 조사와 구현 사이에서 자료를 직접 복사해 전달할 필요가 줄고, 잠깐의 기술 검토 때문에 현재 대화의 역할과 맥락이 바뀌지 않습니다.
+**Why this helps:** You spend less time choosing a skill name or reconstructing the research background from an earlier chat.
 
-**4. 구현·실험 업무로 전환합니다.**
+**3. Check implementation feasibility while keeping the research conversation active.**
 
 ```text
-/task-coding 채택한 v1을 구현하고 합의한 조건으로 실험해 줘.
-기존 평가 조건을 유지하고 실패 사례도 기록해 줘.
+Have coding review only whether this approach is feasible to implement.
+Do not change the code yet. Tell me what would need to change and what constraints to expect.
 ```
 
-이제 메인 업무가 coding으로 바뀝니다. 에이전트는 coding의 지침·기억을 읽고 ideation에서 채택한 v1과 핵심 조건을 확인합니다. 수행한 구현과 실험을 코드·설정·결과·로그에 연결하고, 실패와 아직 검증하지 못한 부분도 기억에 남깁니다.
+ideation remains the main task. A coding subagent applies `task-coding`, reads the research decisions and relevant code, and returns its review. You can use that review to refine the approach in the same research conversation.
 
-**여기서의 장점:** “이전 연구안대로 구현해 줘”의 기준이 실제 기록과 버전으로 연결됩니다. 새로 맡은 에이전트가 조건을 추측하거나 실패한 시도를 반복하는 일을 줄일 수 있습니다.
+**Why this helps:** There is less need to copy materials between research and implementation yourself, and a brief technical review does not change the main role or context of the chat.
 
-**5. 검증한 결과를 논문 초안에 연결합니다.**
+**4. Switch to implementation and experiments.**
 
 ```text
-/task-writing coding에서 검증한 v1 결과로 실험 절 초안을 써 줘.
-확인하지 않은 결과나 주장도 구분해 줘.
+/task-coding Implement the adopted v1 approach and run experiments under the agreed conditions.
+Keep the existing evaluation conditions and record failure cases too.
 ```
 
-writing은 coding의 기억으로 실험 개요를 파악하고, 로그·결과 원본에서 수치와 확인 범위를 대조합니다. 초안에는 실제로 사용한 결과 버전을 남깁니다.
+The main task now becomes coding. The agent reads coding's instructions and memory, then checks the v1 design adopted by ideation and its essential conditions. It connects implementation and experiment records to code, configurations, results, and logs, and records failures and anything that remains unverified.
 
-**여기서의 장점:** 사용자가 결과를 다시 모아 붙여 넣는 수고를 줄이고, 논문의 주장과 실제 실험 근거를 연결할 수 있습니다.
+**Why this helps:** “Implement the earlier research design” points to actual records and a specific version. The agent taking over has less need to guess conditions or repeat failed attempts.
 
-**6. 실패 사례를 보고 연구 설계를 수정합니다.**
+**5. Bring verified results into the paper draft.**
 
 ```text
-/task-ideation coding에서 확인한 실패 사례를 반영해 v2 설계를 만들자.
-평가 조건은 유지하고, v1에서 무엇을 왜 바꾸는지 기록해 줘.
+/task-writing Draft the experiments section using the v1 results validated by coding.
+Clearly distinguish any results or claims that remain unverified.
 ```
 
-ideation은 실패의 조건과 근거를 읽어 v2를 정리합니다. 이 시점에 바뀐 것은 연구 설계이며, 기존 코드·실험·초안은 아직 v1일 수 있습니다. 각 업무는 자신이 실제로 반영한 버전을 유지합니다.
+writing reads coding's memory for an overview, then checks the numbers and validation scope against the original logs and results. The draft records which result version it actually uses.
+
+**Why this helps:** You spend less time collecting and pasting results, and the paper's claims stay connected to experimental evidence.
+
+**6. Revise the research design using the failure cases.**
 
 ```text
-ideation: v2 설계 채택 ── 반영 대기 ──▶ coding: v1 구현·실험
-                                         │ v1 결과 사용
-                                         ▼
-                                    writing: v1 초안
+/task-ideation Let's design v2 based on the failure cases found by coding.
+Keep the evaluation conditions and record what changes from v1 and why.
 ```
 
-**여기서의 장점:** “v2를 채택했다”는 결정을 “v2 구현과 검증까지 끝났다”로 혼동하지 않습니다. 무엇을 다시 구현·실험·작성해야 하는지 드러납니다.
+ideation reads the failure conditions and evidence and develops v2. At this point, the research design has changed, while the existing code, experiments, and draft may still use v1. Each task retains a record of the version it has actually incorporated.
 
-**7. 쌓인 기억을 정리하고 다음 단계로 이어갑니다.**
+```text
+ideation: v2 design adopted ── pending incorporation ──▶ coding: v1 implementation and experiments
+                                                        │ uses v1 results
+                                                        ▼
+                                                   writing: v1 draft
+```
+
+**Why this helps:** Adopting v2 is kept distinct from implementing and validating it. You can see what still needs to be implemented, tested, and rewritten.
+
+**7. Reconcile the accumulated memory and continue.**
 
 ```text
 /dreaming
 ```
 
-전체 업무의 MEMORY·MEMO·STRUCTURE와 필요한 원본을 대조합니다. 예를 들어 요약에만 “v2 검증 완료”라고 잘못 적혀 있다면 실제 근거를 확인해 정정하고, v2 구현·실험과 후속 논문 수정을 남은 일로 정리합니다. 변경 경위가 기억만으로 분명하지 않으면 커밋된 Git 이력도 확인합니다.
+The agent compares MEMORY, MEMO, and STRUCTURE across all tasks with the relevant sources. If a summary incorrectly says “v2 validation complete,” it checks the evidence and corrects the record, leaving v2 implementation, experiments, and the corresponding paper revisions as outstanding work. When memory alone does not explain a change, it also checks committed Git history.
 
-의미 있는 단계에서 하네스 git에 백업해 두면 당시 상태를 다시 비교할 수 있습니다. 다음 채팅에서는 coding의 정리된 기억을 읽고 v2 구현부터 이어갈 수 있습니다.
+Backing up to harness Git at meaningful milestones lets you compare those earlier states. In the next chat, the agent can read coding's reconciled memory and resume with the v2 implementation.
 
-**여기서의 장점:** 업무가 병행되고 여러 번 수정돼도, 사용자가 모든 파일을 직접 맞추거나 전체 진행 상황을 다시 설명하지 않고 확인된 현재 상태에서 재개할 수 있습니다.
+**Why this helps:** Even with parallel tasks and repeated revisions, you can resume from a verified current state without manually reconciling every file or re-explaining all the work so far.
 
-### 6.2. 응용: coding 업무에 원격 머신 스킬 추가하기
+### 6.2. Going further: add a remote-machine skill to coding
 
-이 예시는 기본적인 업무 전환·기억 공유에서 더 나아가, **사용자 환경에 맞춘 업무 스킬을 만들고 원격 머신 활용까지 확장하는 과정**입니다. 반복 절차는 스킬에, 접속·환경 정보는 보조 문서에 나눠 두면 이후 요청에서도 같은 절차와 환경을 이어 쓸 수 있습니다.
+This example goes beyond task transitions and shared memory to **creating a task skill for your own environment and using a remote machine**. Keep repeatable procedures in the skill and connection and environment details in a supporting document, so later requests can reuse the same procedures and environment.
 
-| 종류 | 이 예시의 스킬 | 역할 |
+| Type | Skill in this example | Role |
 | --- | --- | --- |
-| **업무 전환 스킬** | `task-coding` | coding 담당 역할로 전환하고 업무 루트·지침·기억을 읽게 함 |
-| **업무 스킬** | `coding-remote` | coding 업무 안에서 원격 머신의 상태 조회·실험 실행 절차를 수행 |
+| **Task transition skill** | `task-coding` | Enter the coding role, identify its task root, and read its instructions and memory |
+| **Task skill** | `coding-remote` | Check remote machine status and run experiments within the coding task |
 
-`task-coding`이 수행할 업무와 맥락을 정하면, `coding-remote`가 그 안에서 필요한 전용 절차를 맡습니다. 업무 스킬 이름은 `{업무명}-{스킬명}` 규칙을 따릅니다.
+`task-coding` establishes the task and context; `coding-remote` supplies a specialized procedure within it. Task skill names follow the `{task-name}-{skill-name}` convention.
 
-**1. 필요한 절차와 환경을 도우미에게 설명합니다.**
-
-```text
-/harness-helper coding에서 원격 GPU 서버를 사용할 coding-remote 스킬을 만들고 싶어.
-서버 상태 조회와 합의한 실험 실행 절차는 SKILL.md에,
-SSH 접속 정보와 원격 경로·환경 정보는 remote-machine.md에 나눠 담는 구성을 제안해 줘.
-```
-
-**2. 구성안을 확인하고 스킬과 보조 문서를 만듭니다.**
-
-도우미는 필요한 접속 정보와 허용할 작업 범위를 확인하고, 제안에 동의하면 다음과 같이 구성합니다. 아래는 **추가로 만들 수 있는 예시이며, 기본 제공되는 스킬은 아닙니다.**
+**1. Explain the procedures and environment to the helper.**
 
 ```text
-.agents/skills/coding-remote/            ← 하네스 루트의 업무 스킬
-├── SKILL.md                            언제·어떤 절차로 원격 작업을 수행할지
-└── remote-machine.md                   해당 절차가 참조할 접속·환경 정보
+/harness-helper I want a coding-remote skill for using a remote GPU server within coding.
+Propose a setup with status checks and agreed experiment procedures in SKILL.md,
+and SSH connection details, remote paths, and environment information in remote-machine.md.
 ```
 
-| 파일 | 담을 내용의 예 | 사용자가 제공·결정할 내용 |
+**2. Review the proposal and create the skill and supporting document.**
+
+The helper checks the required connection details and the scope of permitted actions. Once you approve the proposal, it creates a structure like this. This is **an example you can add, not a skill included by default**.
+
+```text
+.agents/skills/coding-remote/            ← task skill at the harness root
+├── SKILL.md                            When and how to perform remote actions
+└── remote-machine.md                   Connection and environment details used by the procedures
+```
+
+| File | Example contents | What you provide or decide |
 | --- | --- | --- |
-| `SKILL.md` | remote-machine.md 읽기, 접속·환경 확인, 상태 조회와 실험 실행 절차, 로그 확인·실패 보고 | 맡길 작업, 자원 한도, 실행 전에 확인할 조건 |
-| `remote-machine.md` | SSH 접속 별칭·계정, 원격 코드·데이터 경로, 실행 환경과 GPU 정보 | 실제 서버 정보와 사용할 경로·환경 |
+| `SKILL.md` | Read remote-machine.md; check the connection and environment; inspect status; run experiments; check logs and report failures | Actions to delegate, resource limits, and conditions to check before execution |
+| `remote-machine.md` | SSH host alias and account, remote code and data paths, runtime environment, and GPU information | Actual server details and the paths and environment to use |
 
-비밀번호·개인키 본문은 이 문서에 넣지 않고 기존 로컬 SSH 인증 설정을 참조합니다. 원격 접속 도구와 권한은 실제 사용 환경에서 확인합니다. 파일 작성과 스킬 생성은 에이전트가 맡을 수 있으므로, 사용자가 두 문서를 처음부터 직접 작성할 필요는 없습니다.
+Keep passwords and private key contents out of these documents; refer to existing local SSH authentication settings. Available connection tools and permissions are checked in the actual environment. The agent can write the files and create the skill, so you do not need to draft both documents yourself.
 
-**3. coding으로 전환하면서 만든 스킬을 사용합니다.**
+**3. Switch to coding and use the skill.**
 
-먼저 상태 조회만 요청할 수 있습니다.
-
-```text
-/task-coding coding-remote로 연구용 서버의 GPU 상태와 실행 중인 실험만 확인해 줘.
-새 실험을 시작하거나 기존 프로세스를 중단하지는 마.
-```
-
-**4. 확인한 환경에서 실제 실험으로 이어갑니다.**
-
-조회 결과를 확인하고 실행 조건을 정한 뒤에는 다음처럼 요청합니다.
+Start with a status check only.
 
 ```text
-확인한 환경에서 합의한 설정으로 실험을 실행하고, 로그와 결과를 정리해 줘.
+/task-coding Use coding-remote to check only the research server's GPU status and running experiments.
+Do not start new experiments or stop existing processes.
 ```
 
-에이전트는 업무 전환 스킬로 coding의 지침·기억을 읽고, `coding-remote/SKILL.md`가 안내하는 절차와 `remote-machine.md`의 실제 환경 정보를 적용합니다. 실행 기록은 coding의 MEMORY·MEMO에 남기고, 로그·체크포인트는 코드베이스의 정규 위치를 따릅니다.
+**4. Run experiments in the environment you checked.**
 
-**여기서의 장점:** 서버 접속 방법과 실행 절차를 매번 설명할 필요가 줄고, 사용자는 실행할 일과 조건에 집중할 수 있습니다. 서버나 환경이 바뀌면 해당 정보를 갱신해 같은 스킬을 계속 활용합니다.
+After reviewing the status and deciding the execution conditions, ask:
+
+```text
+Run the experiment in the checked environment with the agreed configuration, and organize the logs and results.
+```
+
+The agent uses the transition skill to read coding's instructions and memory, then follows `coding-remote/SKILL.md` with the actual environment information in `remote-machine.md`. Execution is recorded in coding's MEMORY and MEMO; logs and checkpoints follow the codebase's regular storage conventions.
+
+**Why this helps:** You spend less time repeating server access details and execution procedures and can focus on what to run and under which conditions. When the server or environment changes, update the supporting information and keep using the same skill.
