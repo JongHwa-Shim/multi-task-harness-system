@@ -56,7 +56,9 @@ If you already have several tasks underway, **provide their outputs or folder pa
 
 If you have a question or something you want to do, **ask `/harness-helper`.** It helps with usage questions, new setups, and ways to use the harness, proposing an appropriate approach and helping you carry it out.
 
-The structure and rules may look complicated at first. **You do not need to work out whether a request fits the harness before asking. Say what you want to do, and the harness will handle it or suggest a way forward.**
+**If you're wondering whether it's okay to ask for something, go ahead and ask.** The structure and rules can look complicated at first, but you can ask for anything without worrying that you'll break the harness. It will handle the request, warn you if there's a problem, or suggest the best way to proceed.
+
+**Share what's on your mind, down to the small details.** Even a goal you're still considering is worth mentioning. For example, “I'm thinking about submitting this paper to a top conference in applied AI.” The harness incorporates those details into its setup and memory so the agent can tailor its work to what you want to achieve.
 
 **You do not need to keep every memory file and folder organized by hand.** Provide your purpose, materials, requests, and important decisions. The agent maintains the setup and records according to the instructions.
 
