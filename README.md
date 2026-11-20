@@ -62,7 +62,7 @@ If you have a question or something you want to do, **ask `/harness-helper`.** I
 
 **You do not need to keep every memory file and folder organized by hand.** Provide your purpose, materials, requests, and important decisions. The agent maintains the setup and records according to the instructions.
 
-**Tell the agent before you permanently close or delete this chat, or move to a new one for good.** If you close it abruptly, your latest decisions and unfinished work may exist only in the conversation. For example, say “I'm done with this chat. I'll pick this up in a new one.” The agent will update the memory files for the tasks you worked on and back up this chat's changes to the local harness Git repository. Wait for it to confirm the backup before closing or deleting the chat.
+**Tell the agent before you permanently close or delete a chat session, or move to a new one for good.** If you close it abruptly, your latest decisions and unfinished work may exist only in the conversation. For example, say “I'm done with this chat. I'll pick this up in a new one.” The agent will update the memory files for the tasks you worked on and back up the changes from that session to the local harness Git repository. Wait for it to confirm the backup before closing or deleting the chat.
 
 | What you provide or decide | What the harness handles |
 | --- | --- |
