@@ -73,13 +73,24 @@ If you have a question or something you want to do, **ask `/harness-helper`.** I
 
 Here, automatic maintenance means **the agent updates records as it performs the work**. Routine memory updates within an approved task do not need separate approval each time. You can also ask `/harness-helper` about usage or the current setup. For questions alone, it explains and gives examples without changing files.
 
+## Featured workflows
+
+| When to use it | What to ask | What you get |
+| --- | --- | --- |
+| **You have a rough idea of what to build.** | `/interview-me I need a way to track experiments. Help me figure out what it should do.` | The agent asks one question at a time. You leave with a short statement of whose problem you're solving, what success looks like, and what's out of scope. |
+| **The agent seems to contradict itself or overlook a recent decision.** | `/dreaming I thought we changed methods last time, but you keep mentioning the old one. Check the coding task's memory.` | The agent checks memory against recorded decisions and research materials, corrects errors it can verify, and flags conflicts the evidence cannot resolve. |
+| **A design discussion needs a quick feasibility check.** | “Ask the coding task whether we could implement this idea in the existing codebase.” | The coding agent inspects the code and brings its findings back to the discussion, where you can compare alternatives. |
+| **You're picking up unfinished work in a new chat.** | “Let's resume writing. Which experiment results made it into the draft, and what edits are still open?” | The agent reads the task memory and draft so you can pick up where you left off. |
+
+In everyday requests, the agent also asks when an unresolved choice would change the result. Use `/interview-me` when you want to explore the goal itself. Coding and writing are examples of tasks you can set up with the helper.
+
 ## 1. Folder structure and who manages what
 
 An **ultimate goal** is the larger outcome that multiple tasks work together to achieve, such as completing a research study and writing it up as a paper.
 
 A **task** is an ongoing unit of work with its own role, goals, and memory across requests and chats. Each `tasks/{task-name}/` folder is a **task root**, and the top-level folder containing them all is the **harness root**. An individual step within a task, such as editing a file or running an experiment, is an **action**.
 
-The following is **an example after setting up three tasks and their skills**. The harness initially provides three meta skills; you create tasks and additional skills with the helper as needed.
+The following is **an example after setting up three tasks and their skills**. The harness includes four meta skills. You create tasks and additional skills with the helper as needed.
 
 - **[Included]**: Files provided with the harness.
 - **[Managed]**: Files and folders that the agent creates and maintains under the agreed setup and instructions. Task instructions and skills follow your creation or change requests; memory and structure records are updated as work progresses.
@@ -95,6 +106,7 @@ harness/                                     ← harness root
 │   └── skills/                              Shared location for all skills
 │       ├── harness-helper/SKILL.md           [Included] (Meta skill) Usage help, setup, and changes
 │       ├── dreaming/SKILL.md                 [Included] (Meta skill) Memory review and reconciliation
+│       ├── interview-me/SKILL.md             [Included] (Meta skill) Clarify intent through an interview
 │       ├── switch-agent-platform/SKILL.md    [Included] (Meta skill) Agent platform conversion
 │       ├── task-ideation/SKILL.md            [Managed] (Task transition skill) Enter ideation
 │       ├── task-coding/SKILL.md              [Managed] (Task transition skill) Enter coding
@@ -270,12 +282,13 @@ For example, MEMO may say “v2 experiments complete” while the logs and resul
 
 ## 5. Management tools to use when needed
 
-These three **meta skills** manage the harness without changing the active task role.
+You can use these **meta skills** while staying in your current task role.
 
 | Skill | Purpose | Example request |
 | --- | --- | --- |
 | `/harness-helper` | Questions about usage and the current setup; initialization; creating or changing tasks, folders, and skills | Explain the difference between MEMORY and MEMO. / Suggest how to split the writing task. |
 | `/dreaming` | Review missing, conflicting, or outdated memory and context across tasks | `/dreaming` or `/dreaming Check only the coding task.` |
+| `/interview-me` | Clarify the goal, success criteria, and scope one question at a time, then confirm the statement of intent | `/interview-me Help me decide what readers should take away from this paper.` |
 | `/switch-agent-platform` | Switch between AGENTS and Claude setups | Switch the harness to the Claude setup. |
 
 Skill names use lowercase letters, digits, and hyphens. Meta skill names are otherwise unrestricted, and their descriptions identify them as meta skills. When creating tasks or skills, or splitting folders, the helper reviews existing materials, proposes changes, and acts after approval.
