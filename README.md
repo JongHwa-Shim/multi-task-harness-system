@@ -62,14 +62,14 @@ If you have a question or something you want to do, **ask `/harness-helper`.** I
 
 **You do not need to keep every memory file and folder organized by hand.** Provide your purpose, materials, requests, and important decisions. The agent maintains the setup and records according to the instructions.
 
-**Tell the agent before you permanently close or delete a chat session or switch to another chat session.** If you close it abruptly, your latest decisions and unfinished work may exist only in the conversation. For example, say “I'm done with this chat. I'll pick this up in a new one.” The agent will update the memory files for the tasks you worked on and back up the changes from that session to the local harness Git repository. Wait for it to confirm the backup before closing or deleting the chat.
+**Tell the agent before you permanently close or delete a chat session or switch to another chat session.** If you close it abruptly, your latest decisions and unfinished work may exist only in the conversation. For example, say “I'm done with this chat. I'll pick this up in a new one.” The agent will update the memory files for the tasks you worked on and check that the local harness Git history includes the final changes. Wait for it to confirm the backup before closing or deleting the chat.
 
 | What you provide or decide | What the harness handles |
 | --- | --- |
 | What you want to work on, your goals, and essential conditions | Propose a task setup; after approval, create folders, instructions, and transition skills |
 | Where your materials are and which environment to use | Read and link the materials, incorporating them into the relevant context and skills |
 | Feedback on results, decisions, and change requests | Record actions and decisions in MEMORY and MEMO, and update STRUCTURE |
-| Approval of setup changes, changes to essential conditions, and backups | Apply approved changes and commit to the requested repository |
+| Decide whether to change the setup or essential conditions | Apply the agreed changes and make local harness Git commits that are useful to compare or restore later |
 
 Here, automatic maintenance means **the agent updates records as it performs the work**. Routine memory updates within an approved task do not need separate approval each time. You can also ask `/harness-helper` about usage or the current setup. For questions alone, it explains and gives examples without changing files.
 
@@ -235,15 +235,13 @@ The two repositories are managed separately. A harness backup does not also comm
 Check ideation's memory and the harness Git history, and tell me what changed first. Do not edit anything yet.
 ```
 
-You can also request a backup at any point while you continue working in the same chat.
+**The agent makes local harness Git commits as it works.** It chooses when to commit and which changes belong together so the next agent can trace a decision or compare two versions. For example, if the evaluation criteria change, the agent can save the revised criteria with the reason for the change before later experiments produce results. Routine commits need no approval. You can still ask to save a particular state.
 
 ```text
-Commit all harness changes so far to harness Git.
+Before starting the next experiment, commit the evaluation criteria we just adopted and the reasons for choosing them to harness Git.
 ```
 
-You can request a backup or accept the agent's suggestion. After meaningful results, the agent summarizes the changes and proposes a commit message. **History is inspected as needed, commits require a request or approval, and remote pushes require an explicit request.** If the intended repository is unclear, the agent asks.
-
-Git history covers committed files. Backing up research decisions and outputs at meaningful milestones makes task transitions and context recovery easier.
+Ask explicitly if you want the agent to commit to a separate project repository or push to a remote such as GitHub.
 
 ### 4.3. Dreaming: check memory against the actual materials
 
@@ -395,7 +393,7 @@ ideation: v2 design adopted ── pending incorporation ──▶ coding: v1 im
 
 The agent compares MEMORY, MEMO, and STRUCTURE across all tasks with the relevant sources. If a summary incorrectly says “v2 validation complete,” it checks the evidence and corrects the record, leaving v2 implementation, experiments, and the corresponding paper revisions as outstanding work. When memory alone does not explain a change, it also checks committed Git history.
 
-Backing up to harness Git at meaningful milestones lets you compare those earlier states. In the next chat, the agent can read coding's reconciled memory and resume with the v2 implementation.
+In the next chat, the agent can read the coding task's updated memory and resume the v2 implementation. If it needs to revisit a v1 decision, it can compare the current record with the local harness Git commit from that stage.
 
 **Why this helps:** Even with parallel tasks and repeated revisions, you can resume from a verified current state without manually reconciling every file or re-explaining all the work so far.
 
